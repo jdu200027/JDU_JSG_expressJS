@@ -8,7 +8,7 @@ const SECRET_KEY = 'your_secret_key';
 
 const router = express.Router();
 
-router.post('/api/login', (req, res)=>{
+router.post('/api/login', authenticateUser, (req, res)=>{
     try {
         const { email, password } = req.body;
 
@@ -23,7 +23,6 @@ router.post('/api/login', (req, res)=>{
         res.status(500).json({ message: 'Internal server error' });
     }
 })
-
 
 // Logout 
 router.post('/api/logout',  (req, res) => {
