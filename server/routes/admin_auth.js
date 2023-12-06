@@ -1,7 +1,8 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const authenticateUser = require('../middleware/authenticateUser');
+const argon2 = require('argon2');
+
+const express = require('express');
 const connection = require('../config/db'); // Make sure you have the appropriate DB configuration
 
 const SECRET_KEY = 'your_secret_key';
@@ -13,7 +14,7 @@ router.post('/admin/register', async (req, res) => {
     try {
         const { email, password, firstname, lastname } = req.body;
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await argon2.hash(password);
 
         const insertUserQuery = "INSERT INTO admin (email, password, firstname, lastname) VALUES (?, ?, ?, ?)";
 
@@ -50,7 +51,10 @@ router.post('/admin/login', async (req, res) => {
             }
 
             const user = results[0];
-            const passwordMatch = await bcrypt.compare(password, user.password);
+            const hashedPassword = user.password;
+
+            // Compare the hashed password with the provided password
+            const passwordMatch = await argon2.verify(hashedPassword, password);
 
             if (!passwordMatch) {
                 return res.status(401).json({ message: 'Invalid credentials' });
@@ -61,13 +65,11 @@ router.post('/admin/login', async (req, res) => {
             });
 
             // Send the token in the response
-            res.status(200).json(
-                {
-                    "status": "success",
-                    "message": "Login successful",
-                    token
-                }
-            );
+            res.status(200).json({
+                status: 'success',
+                message: 'Login successful',
+                token,
+            });
         });
     } catch (error) {
         console.error(error);
@@ -76,7 +78,7 @@ router.post('/admin/login', async (req, res) => {
 });
 
 // Logout admin
-router.post('/admin/logout', authenticateUser, (req, res) => {
+router.post('/admin/logout', (req, res) => {
     res.status(200).json({
         message: {
             "status": "success",

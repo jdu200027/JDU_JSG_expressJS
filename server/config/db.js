@@ -4,7 +4,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'root',
-  database: 'jdumsg',
+  database: 'jdu_msg',
 });
 
 
