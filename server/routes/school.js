@@ -24,7 +24,6 @@ router.post("/create-school", auth, (req, res) => {
     }
 });
 
-
 router.get("/get-schools", auth, (req, res) => {
     const getSchools = "SELECT * FROM School";
     try {

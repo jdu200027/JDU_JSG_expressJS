@@ -45,7 +45,6 @@ router.get('/api/links', authenticateUser, (req, res) => {
   }
 });
 
-
 router.get('/api/links/:id', authenticateUser, (req, res) => {
   const linkId = req.params.id;
   const selectURLFromSQL = "SELECT * FROM link WHERE id = ?";
@@ -70,7 +69,6 @@ router.get('/api/links/:id', authenticateUser, (req, res) => {
     res.status(500).json({ status: "error", message: "Internal Server Error" });
   }
 });
-
 
 router.put('/api/links/:id', authenticateUser, (req, res) => {
   const linkId = req.params.id;

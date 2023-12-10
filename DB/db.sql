@@ -2,7 +2,6 @@ CREATE DATABASE `jdu_msg`;
 
 USE `jdu_msg`;
 
-
 CREATE TABLE `Role` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(50) NOT NULL,
@@ -11,14 +10,12 @@ CREATE TABLE `Role` (
     `permissions` JSON
 );
 
-
 CREATE TABLE `School` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(100),
     `address` VARCHAR(255),
     `contact_email` VARCHAR(100)
 );
-
 
 CREATE TABLE `Admin` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -31,7 +28,6 @@ CREATE TABLE `Admin` (
     FOREIGN KEY (`role_id`) REFERENCES `Role`(`id`),
     FOREIGN KEY (`school_id`) REFERENCES `School`(`id`)
 );
-
 
 CREATE TABLE `User` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -58,7 +54,6 @@ CREATE TABLE `SchoolGroup` (
     FOREIGN KEY (`school_id`) REFERENCES `School`(`id`)
 );
 
-
 CREATE TABLE `MessageType` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `title` VARCHAR(100),
@@ -67,7 +62,6 @@ CREATE TABLE `MessageType` (
     FOREIGN KEY (`school_id`) REFERENCES `School`(`id`)
 );
 
-
 CREATE TABLE `Link` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `title` VARCHAR(100),
@@ -75,7 +69,6 @@ CREATE TABLE `Link` (
     `school_id` INT,
     FOREIGN KEY (`school_id`) REFERENCES `School`(`id`)
 );
-
 
 CREATE TABLE `Message` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,

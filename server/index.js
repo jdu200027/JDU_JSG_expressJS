@@ -11,7 +11,6 @@ const links = require('./routes/links');
 const message_type = require('./routes/message_type');
 const messages = require('./routes/messages');
 const school_groups = require('./routes/school_groups');
-const school_members = require('./routes/school_members');
 const sent_messages = require('./routes/sent_messages');
 const users = require('./routes/users');
 
@@ -37,7 +36,6 @@ app.use(links);
 app.use(message_type);
 app.use(messages);
 app.use(school_groups);
-app.use(school_members);
 app.use(sent_messages);
 app.use(users);
 
